@@ -1,0 +1,62 @@
+<section class="rounded-xl flex border-2 border-blue-500">
+  <div class="flex justify-center rounded-xl w-[85%] m-2 p-2 border-2">
+    <!-- genre -->
+    <div class="mx-2 border-2 border-green-700 relative">
+      <button
+        (click)="dropdownClick('isGenreOpen')"
+        class="bg-blue-500 text-white px-4 py-2 rounded">
+        Genres
+      </button>
+      @if (isGenreOpen) {
+        <div
+          class="absolute left-0 mt-2 bg-white border rounded shadow-lg w-auto">
+          <ul>
+            @for (genre of genres; track genre.id) {
+              <li
+                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                [ngClass]="selectedGenres.has(genre.id) ? 'bg-blue-200' : ''"
+                (click)="toggleGenre(genre.id)">
+                {{ genre.name }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <!-- language -->
+    <div class="mx-2 border-2 border-green-700 relative">
+      <button
+        (click)="dropdownClick('isLanguageOpen')"
+        class="bg-blue-500 text-white px-4 py-2 rounded">
+        language
+      </button>
+      @if (isLanguageOpen) {
+        <div
+          class="absolute left-0 mt-2 bg-white border rounded shadow-lg w-auto">
+          <ul>
+            @for (language of languages; track $index) {
+              <li
+                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                [ngClass]="
+                  selectedLanguages.has(language.iso) ? 'bg-blue-200' : ''
+                "
+                (click)="toggleLanguage(language.iso)">
+                {{ language.english_name }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <!-- year -->
+    <!-- country | with_origin_country -->
+    <!-- sort_by -->
+  </div>
+  <button
+    (click)="onFilter()"
+    class="rounded-xl border w-[15%] hover:bg-blue-500 m-2 p-2">
+    filter
+  </button>
+</section>
