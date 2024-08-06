@@ -31,23 +31,16 @@ export class FilterBarComponent implements OnInit {
   movies: any;
 
   ngOnInit() {
-    this.tmdb
-      .discoverMovies({
-        sort_by: 'popularity.desc',
-        with_original_language: 'ar|he',
-        with_genres: ['16', '99'],
-      })
-      .subscribe(
-        (data) => {
-          this.moviesDataService.set(data);
-          this.movies = data;
+    this.tmdb.discoverMovies(this.filtersStateService.filters).subscribe(
+      (data) => {
+        this.moviesDataService.set(data.results);
 
-          console.log('movies from app filter bar', this.movies);
-        },
-        (error) => {
-          console.error('Error:', error);
-        },
-      );
+        console.log('movies from app filter bar', this.movies);
+      },
+      (error) => {
+        console.error('Error:', error);
+      },
+    );
   }
 
   toggleGenre(genreId: number) {
@@ -81,8 +74,7 @@ export class FilterBarComponent implements OnInit {
 
     this.tmdb.discoverMovies(filters).subscribe(
       (data) => {
-        this.moviesDataService.set(data);
-        this.movies = data;
+        this.moviesDataService.set(data.results);
       },
       (error) => {
         console.error('Error:', error);

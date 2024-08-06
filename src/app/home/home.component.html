@@ -1,0 +1,10 @@
+<main class="flex flex-col m-2 min-h-screen">
+  <app-pagination-bar />
+  <app-filter-bar />
+
+  <div class="justify-center flex flex-wrap">
+    @for (movie of movies; track $index) {
+      <app-show-card [movie]="movie" />
+    }
+  </div>
+</main>

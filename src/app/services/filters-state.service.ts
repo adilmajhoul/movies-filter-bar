@@ -4,7 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FiltersStateService {
-  filters: any = {};
+  initialFilters = {
+    sort_by: 'popularity.desc',
+    with_original_language: 'ar|he',
+    with_genres: ['16', '99'],
+
+    page: 1,
+  };
+
+  filters = this.initialFilters;
 
   constructor() {}
 

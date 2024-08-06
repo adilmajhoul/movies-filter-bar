@@ -1,6 +1,15 @@
-<p>pagination-bar works!</p>
-
-<form action="">
-  <input type="number" name="page" [(ngModel)]="page" />
-  <button (click)="changePage(page)">Go</button>
+<form
+  action=""
+  class="flex justify-center items-center rounded-xl p-2 m-1 border-2">
+  <label class="m-2">Manual Paginaton :</label>
+  <input
+    class="border-2 rounded-xl p-2"
+    type="number"
+    name="page"
+    [(ngModel)]="page" />
+  <button
+    class="text-xl text-white border-2 rounded-xl p-2 m-2 bg-blue-500 hover:bg-blue-700 w-28"
+    (click)="changePage(page)">
+    Go
+  </button>
 </form>

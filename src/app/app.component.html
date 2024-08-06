@@ -1,16 +1,4 @@
-<main class="flex flex-col m-2 min-h-screen border-2 border-blue-500">
-  <app-pagination-bar />
-  <app-filter-bar />
-
-  <div class="justify-center flex flex-wrap border-2 border-red-500">
-    @for (movie of movies.results; track $index) {
-      <app-show-card [movie]="movie" />
-    }
-  </div>
-
-  <p class="m-2 w-full border-2 border-blue-800">2</p>
-  <p class="m-2 w-full border-2 border-blue-800">3</p>
-  <p class="m-2 w-full border-2 border-blue-800">1</p>
+<main>
+  <app-navbar />
+  <router-outlet />
 </main>
-
-<router-outlet />

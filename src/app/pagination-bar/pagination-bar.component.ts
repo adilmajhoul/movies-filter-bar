@@ -30,7 +30,7 @@ export class PaginationBarComponent {
 
     this.tmdb.discoverMovies(updatedFilters).subscribe(
       (data) => {
-        this.moviesDataService.set(data);
+        this.moviesDataService.set(data.results);
       },
       (error) => {
         console.error('Error:', error);
