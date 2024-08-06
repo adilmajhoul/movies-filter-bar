@@ -29,7 +29,7 @@
       <button
         (click)="dropdownClick('isLanguageOpen')"
         class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
-        language
+        Language
       </button>
       @if (isLanguageOpen) {
         <div
@@ -51,8 +51,55 @@
     </div>
 
     <!-- year -->
+    <div class="mx-2 relative">
+      <button
+        (click)="dropdownClick('isYearOpen')"
+        class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
+        Year
+      </button>
+      @if (isYearOpen) {
+        <div
+          class="absolute left-0 mt-2 bg-white border rounded shadow-lg w-auto">
+          <ul>
+            @for (year of years; track $index) {
+              <li
+                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                [ngClass]="selectedYears.has(year) ? 'bg-blue-200' : ''"
+                (click)="toggleYear(year)">
+                {{ year }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
     <!-- country | with_origin_country -->
+    <div class="mx-2 relative">
+      <button
+        (click)="dropdownClick('isCountryOpen')"
+        class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
+        Country
+      </button>
+      @if (isCountryOpen) {
+        <div
+          class="absolute left-0 mt-2 bg-white border rounded shadow-lg w-auto">
+          <ul>
+            @for (country of countries; track $index) {
+              <li
+                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                [ngClass]="
+                  selectedCountries.has(country.iso) ? 'bg-blue-200' : ''
+                "
+                (click)="toggleCountry(country.iso)">
+                {{ country.english_name }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
     <!-- sort_by -->
+    <!-- series or movie-->
   </div>
   <button
     (click)="onFilter()"

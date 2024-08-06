@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { genres, languages } from './dropdown-data';
+import { genres, languages, years, countries } from './dropdown-data';
 import { TmdbService } from '../services/tmdb.service';
 import { MoviesDataService } from '../services/movies-data.service';
 import { FiltersStateService } from '../services/filters-state.service';
@@ -15,12 +15,18 @@ import { FiltersStateService } from '../services/filters-state.service';
 export class FilterBarComponent implements OnInit {
   genres = genres;
   languages = languages;
+  years = years;
+  countries = countries;
 
   isGenreOpen = false;
   isLanguageOpen = false;
+  isYearOpen = false;
+  isCountryOpen = false;
 
   selectedGenres: Set<number> = new Set();
   selectedLanguages: Set<string> = new Set();
+  selectedYears: Set<number> = new Set();
+  selectedCountries: Set<string> = new Set();
 
   constructor(
     private tmdb: TmdbService,
@@ -58,7 +64,24 @@ export class FilterBarComponent implements OnInit {
     } else {
       this.selectedLanguages.add(languageId);
     }
-    console.log('Selected Genres:', this.selectedLanguages);
+    console.log('Selected Languages:', this.selectedLanguages);
+  }
+  toggleYear(year: number) {
+    if (this.selectedYears.has(year)) {
+      this.selectedYears.delete(year);
+    } else {
+      this.selectedYears.add(year);
+    }
+    console.log('Selected Years:', this.selectedYears);
+  }
+
+  toggleCountry(countryId: string) {
+    if (this.selectedCountries.has(countryId)) {
+      this.selectedCountries.delete(countryId);
+    } else {
+      this.selectedCountries.add(countryId);
+    }
+    console.log('Selected countries:', this.selectedCountries);
   }
 
   dropdownClick(propertyName: string) {
@@ -69,6 +92,9 @@ export class FilterBarComponent implements OnInit {
     let filters = {
       with_genres: [...this.selectedGenres],
       with_original_language: [...this.selectedLanguages],
+      year: [...this.selectedYears],
+      with_origin_country: [...this.selectedCountries],
+
       page: 1,
     };
 
