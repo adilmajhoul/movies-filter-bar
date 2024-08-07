@@ -92,7 +92,7 @@ export class FilterBarComponent implements OnInit {
     let filters = {
       with_genres: [...this.selectedGenres],
       with_original_language: [...this.selectedLanguages],
-      year: [...this.selectedYears],
+      primary_release_year: [...this.selectedYears],
       with_origin_country: [...this.selectedCountries],
 
       page: 1,
