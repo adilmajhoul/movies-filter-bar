@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { FilterBarComponent } from './filter-bar/filter-bar.component';
-import { ShowCardComponent } from './show-card/show-card.component';
-import { PaginationBarComponent } from './pagination-bar/pagination-bar.component';
-import { MoviesDataService } from './services/movies-data.service';
+
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { User } from './types/user';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +22,19 @@ import { NavbarComponent } from './navbar/navbar.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  // title = 'movies-filter-bar';
-  // movies: any;
-  // constructor(private moviesDataService: MoviesDataService) {}
-  // ngOnInit() {
-  //   this.moviesDataService.moviesData$.subscribe((movies) => {
-  //     this.movies = movies;
-  //     console.log('movies from app component', this.movies);
-  //   });
-  // }
+  http = inject(HttpClient);
+  authService = inject(AuthService);
+
+  ngOnInit(): void {
+    this.http
+      .get<{
+        user: User;
+      }>('https://api.realworld.io/api/user')
+      .subscribe(
+        (response) => this.authService.user.set(response.user),
+        (error) => {
+          this.authService.user.set(null);
+        },
+      );
+  }
 }

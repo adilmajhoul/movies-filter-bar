@@ -1,0 +1,67 @@
+<form [formGroup]="myform" (ngSubmit)="onSubmit()">
+  <div class="border rounded-xl p-2 m-2">
+    <label for="username">username</label>
+    <input
+      class="border rounded-xl p-2 m-2"
+      id="username"
+      type="username"
+      formControlName="username" />
+    <!-- Use Angular's ngIf inside the @if syntax -->
+    @if (myform.get('username')?.invalid && myform.get('username')?.touched) {
+      <div>
+        @if (myform.get('username')?.errors?.['required']) {
+          <small>Password is required</small>
+        }
+        @if (myform.get('username')?.errors?.['minlength']) {
+          <small>username must be at least 4 characters</small>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="border rounded-xl p-2 m-2">
+    <label for="email">Email</label>
+    <input
+      class="border rounded-xl p-2 m-2"
+      id="email"
+      formControlName="email" />
+    <!-- Use Angular's ngIf inside the @if syntax -->
+    @if (myform.get('email')?.invalid && myform.get('email')?.touched) {
+      <div>
+        @if (myform.get('email')?.errors?.['required']) {
+          <small>Email is required</small>
+        }
+        @if (myform.get('email')?.errors?.['email']) {
+          <small>Email must be valid</small>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="border rounded-xl p-2 m-2">
+    <label for="password">Password</label>
+    <input
+      class="border rounded-xl p-2 m-2"
+      id="password"
+      type="password"
+      formControlName="password" />
+    <!-- Use Angular's ngIf inside the @if syntax -->
+    @if (myform.get('password')?.invalid && myform.get('password')?.touched) {
+      <div>
+        @if (myform.get('password')?.errors?.['required']) {
+          <small>Password is required</small>
+        }
+        @if (myform.get('password')?.errors?.['minlength']) {
+          <small>Password must be at least 4 characters</small>
+        }
+      </div>
+    }
+  </div>
+
+  <button
+    class="hover:bg-blue-700 border rounded-xl p-2 m-2"
+    type="submit"
+    [disabled]="myform.invalid">
+    Sign Up
+  </button>
+</form>
