@@ -41,7 +41,7 @@ export class FilterBarComponent implements OnInit {
       (data) => {
         this.moviesDataService.set(data.results);
 
-        console.log('movies from app filter bar', this.movies);
+        console.log('movies from FILTER BAR', this.movies);
       },
       (error) => {
         console.error('Error:', error);
