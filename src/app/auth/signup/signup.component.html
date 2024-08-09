@@ -1,67 +1,68 @@
-<form [formGroup]="myform" (ngSubmit)="onSubmit()">
-  <div class="border rounded-xl p-2 m-2">
-    <label for="username">username</label>
-    <input
-      class="border rounded-xl p-2 m-2"
-      id="username"
-      type="username"
-      formControlName="username" />
-    <!-- Use Angular's ngIf inside the @if syntax -->
-    @if (myform.get('username')?.invalid && myform.get('username')?.touched) {
-      <div>
-        @if (myform.get('username')?.errors?.['required']) {
-          <small>Password is required</small>
-        }
-        @if (myform.get('username')?.errors?.['minlength']) {
-          <small>username must be at least 4 characters</small>
-        }
-      </div>
-    }
-  </div>
+<div class="min-h-screen flex items-center">
+  <img
+    class="opacity-50 h-screen object-cover w-1/2"
+    src="https://picjumbo.com/wp-content/uploads/young-woman-watching-tv-and-eating-popcorn-at-night-free-photo.jpg"
+    alt="" />
 
-  <div class="border rounded-xl p-2 m-2">
-    <label for="email">Email</label>
-    <input
-      class="border rounded-xl p-2 m-2"
-      id="email"
-      formControlName="email" />
-    <!-- Use Angular's ngIf inside the @if syntax -->
-    @if (myform.get('email')?.invalid && myform.get('email')?.touched) {
-      <div>
-        @if (myform.get('email')?.errors?.['required']) {
-          <small>Email is required</small>
-        }
-        @if (myform.get('email')?.errors?.['email']) {
-          <small>Email must be valid</small>
-        }
+  <div class="relative w-1/2">
+    <div
+      class="opacity-25 flex items-center justify-center bg-[url('https://bit.ly/login-doodle-patterns')] bg-center bg-no-repeat bg-cover h-screen"></div>
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col bg-opacity-40 absolute inset-0 top-28 shadow-2xl border-4 border-[#aaa] h-min m-10 rounded-xl p-10 bg-[#303030] text-gray-400">
+      <div
+        *ngIf="isAccountCreated === true"
+        class="mb-4 py-2 flex justify-center rounded-md bg-green-700 text-white font-bold text-lg">
+        Account Created Successfully
+        <a class="ml-2 text-black font-extrabold text-xl" routerLink="/login"
+          >Login Here</a
+        >
       </div>
-    }
-  </div>
 
-  <div class="border rounded-xl p-2 m-2">
-    <label for="password">Password</label>
-    <input
-      class="border rounded-xl p-2 m-2"
-      id="password"
-      type="password"
-      formControlName="password" />
-    <!-- Use Angular's ngIf inside the @if syntax -->
-    @if (myform.get('password')?.invalid && myform.get('password')?.touched) {
-      <div>
-        @if (myform.get('password')?.errors?.['required']) {
-          <small>Password is required</small>
-        }
-        @if (myform.get('password')?.errors?.['minlength']) {
-          <small>Password must be at least 4 characters</small>
-        }
+      <div
+        *ngIf="isAccountCreated === false"
+        class="mb-4 py-2 flex justify-center rounded-md bg-red-800 text-white font-bold text-lg">
+        {{ serverError }}
       </div>
-    }
-  </div>
 
-  <button
-    class="hover:bg-blue-700 border rounded-xl p-2 m-2"
-    type="submit"
-    [disabled]="myform.invalid">
-    Sign Up
-  </button>
-</form>
+      <label class="text-xl font-bold text-[#aaa]">Username</label>
+      <input
+        class="mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
+        type="text"
+        formControlName="username"
+        placeholder="Username" />
+
+      <label class="text-xl font-bold text-[#aaa]">Email address</label>
+      <input
+        class="mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
+        type="email"
+        formControlName="email"
+        placeholder="Email" />
+
+      <label class="text-xl font-bold text-[#aaa]">Password</label>
+      <input
+        class="mb-5 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
+        type="password"
+        formControlName="password"
+        placeholder="Password" />
+
+      <button
+        type="submit"
+        class="mb-4 flex w-full justify-center rounded-md bg-red-600 py-1.5 font-semibold text-white active:border-4 active:bg-transparent active:border-red-600 text-xl"
+        [disabled]="signupForm.invalid">
+        Create Account
+      </button>
+
+      <a routerLink="/login">
+        <span class="text-white">
+          You Already have Have Account ?
+          <span
+            class="p-1 rounded-md cursor-pointer font-semibold text-lg ml-4 text-red-600 active:bg-red-600 active:text-white">
+            Login Here
+          </span>
+        </span>
+      </a>
+    </form>
+  </div>
+</div>

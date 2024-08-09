@@ -7,17 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { User } from '../../types/user';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css',
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
   fb = inject(FormBuilder);
@@ -25,22 +24,35 @@ export class SignupComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  myform = this.fb.group({
+  signupForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(4)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
+  isAccountCreated: boolean | undefined;
+  serverError: string = '';
+
   onSubmit(): void {
-    this.http
-      .post<{ user: User }>('https://api.realworld.io/api/users', {
-        user: this.myform.getRawValue(),
-      })
-      .subscribe((response) => {
-        console.log('response', response);
-        localStorage.setItem('token', response.user.token);
-        this.authService.user.set(response.user);
-        this.router.navigate(['/']);
-      });
+    if (this.signupForm.valid) {
+      this.http
+        .post<{ user: User }>('https://api.realworld.io/api/users', {
+          user: this.signupForm.getRawValue(),
+        })
+        .subscribe(
+          (response) => {
+            console.log('Signup successful:', response);
+            this.isAccountCreated = true;
+            localStorage.setItem('token', response.user.token);
+            this.authService.user.set(response.user);
+            this.router.navigate(['/']);
+          },
+          (error) => {
+            console.error('Signup failed:', error.message);
+            this.isAccountCreated = false;
+            this.serverError = error.message;
+          },
+        );
+    }
   }
 }
