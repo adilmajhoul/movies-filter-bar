@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ViewPortStateService } from '../services/view-port-state.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,13 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  viewPortStateService = inject(ViewPortStateService);
+
+  ngOnInit() {
+    this.viewPortStateService.viewPortState$.subscribe((viewPortState) => {
+      console.log('Current screen size from NAVBAR:', viewPortState);
+    });
+  }
 
   logout(): void {
     localStorage.setItem('token', '');

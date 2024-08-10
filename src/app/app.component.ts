@@ -6,6 +6,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { User } from './types/user';
+import { Subject } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ResponsiveService } from './services/responsive.service';
+import { ViewPortStateService } from './services/view-port-state.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +29,20 @@ export class AppComponent {
   http = inject(HttpClient);
   authService = inject(AuthService);
 
+  destroyed = new Subject<void>();
+  currentScreenSize: string = '';
+  breakpointObserver = inject(BreakpointObserver);
+  responsiveService = inject(ResponsiveService);
+  viewPortStateService = inject(ViewPortStateService);
+
+  breakpoints = new Map([
+    [Breakpoints.XSmall, 'XSmall'],
+    [Breakpoints.Small, 'Small'],
+    [Breakpoints.Medium, 'Medium'],
+    [Breakpoints.Large, 'Large'],
+    [Breakpoints.XLarge, 'XLarge'],
+  ]);
+
   ngOnInit(): void {
     this.http
       .get<{
@@ -36,5 +54,24 @@ export class AppComponent {
           this.authService.user.set(null);
         },
       );
+    // ============================================
+    this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
+      .subscribe((result) => {
+        for (const query of Object.keys(result.breakpoints)) {
+          if (result.breakpoints[query]) {
+            this.currentScreenSize = this.breakpoints.get(query) ?? 'Unknown';
+            this.viewPortStateService.setViewPortState(this.currentScreenSize);
+          }
+        }
+
+        console.log('Current screen size from APP:', this.currentScreenSize);
+      });
   }
 }
