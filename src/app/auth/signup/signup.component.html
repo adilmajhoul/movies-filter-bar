@@ -1,68 +1,44 @@
-<div class="min-h-screen flex items-center">
-  <img
-    class="opacity-50 h-screen object-cover w-1/2"
+@let labelStyle = 'text-xl font-bold text-gray-800';
+@let inputStyle = 'mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600';
+@let createAccountButtonStyle =
+  'mb-4 flex w-full justify-center rounded-md bg-red-600 py-1.5 font-semibold text-white active:border-4 active:bg-transparent active:border-red-600 text-xl';
+@let logiHereStyle =
+  'p-1 rounded-md cursor-pointer font-semibold text-lg ml-4 text-red-600 active:bg-red-600 active:text-white';
+
+@let mainStyle = 'flex m-2 p-2 border-2 border-red-700 items-center justify-center ';
+
+<!-- <main class="m-2 p-2 border-2 border-red-700 h-screen"> -->
+<!-- <img
+    class="opacity-50 h-screen object-cover border-4 border-blue-800"
+    [ngClass]="viewPort === 'XLarge' || viewPort === 'Large' ? 'w-1/2' : 'hidden'"
     src="https://picjumbo.com/wp-content/uploads/young-woman-watching-tv-and-eating-popcorn-at-night-free-photo.jpg"
-    alt="" />
+    alt="" /> -->
 
-  <div class="relative w-1/2">
-    <div
-      class="opacity-25 flex items-center justify-center bg-[url('https://bit.ly/login-doodle-patterns')] bg-center bg-no-repeat bg-cover h-screen"></div>
-    <form
-      [formGroup]="signupForm"
-      (ngSubmit)="onSubmit()"
-      class="flex flex-col bg-opacity-40 absolute inset-0 top-28 shadow-2xl border-4 border-[#aaa] h-min m-10 rounded-xl p-10 bg-[#303030] text-gray-400">
-      <div
-        *ngIf="isAccountCreated === true"
-        class="mb-4 py-2 flex justify-center rounded-md bg-green-700 text-white font-bold text-lg">
-        Account Created Successfully
-        <a class="ml-2 text-black font-extrabold text-xl" routerLink="/login"
-          >Login Here</a
-        >
-      </div>
+<!-- <div
+    class="opacity-25 flex items-center justify-center bg-[url('https://bit.ly/login-doodle-patterns')] bg-center bg-no-repeat bg-cover h-screen"></div> -->
+<!-- </main> -->
 
-      <div
-        *ngIf="isAccountCreated === false"
-        class="mb-4 py-2 flex justify-center rounded-md bg-red-800 text-white font-bold text-lg">
-        {{ serverError }}
-      </div>
+<main [class]="mainStyle + innerHeight">
+  <form
+    [formGroup]="signupForm"
+    (ngSubmit)="onSubmit()"
+    [ngClass]="getFormWidth()"
+    class="flex flex-col bg-opacity-40 shadow-2xl rounded-xl p-10 bg-[#303030] text-gray-400">
+    <label [class]="labelStyle">Username</label>
+    <input [class]="inputStyle" type="text" formControlName="username" placeholder="Username" />
 
-      <label class="text-xl font-bold text-[#aaa]">Username</label>
-      <input
-        class="mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
-        type="text"
-        formControlName="username"
-        placeholder="Username" />
+    <label [class]="labelStyle">Email address</label>
+    <input [class]="inputStyle" type="email" formControlName="email" placeholder="Email" />
 
-      <label class="text-xl font-bold text-[#aaa]">Email address</label>
-      <input
-        class="mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
-        type="email"
-        formControlName="email"
-        placeholder="Email" />
+    <label [class]="labelStyle">Password</label>
+    <input [class]="inputStyle" type="password" formControlName="password" placeholder="Password" />
 
-      <label class="text-xl font-bold text-[#aaa]">Password</label>
-      <input
-        class="mb-5 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600"
-        type="password"
-        formControlName="password"
-        placeholder="Password" />
+    <button [class]="createAccountButtonStyle" type="submit" [disabled]="signupForm.invalid">Create Account</button>
 
-      <button
-        type="submit"
-        class="mb-4 flex w-full justify-center rounded-md bg-red-600 py-1.5 font-semibold text-white active:border-4 active:bg-transparent active:border-red-600 text-xl"
-        [disabled]="signupForm.invalid">
-        Create Account
-      </button>
+    <span class="text-white">
+      You Already have Have Account ?
 
-      <a routerLink="/login">
-        <span class="text-white">
-          You Already have Have Account ?
-          <span
-            class="p-1 rounded-md cursor-pointer font-semibold text-lg ml-4 text-red-600 active:bg-red-600 active:text-white">
-            Login Here
-          </span>
-        </span>
-      </a>
-    </form>
-  </div>
-</div>
+      <span [class]="logiHereStyle"><a href="/login">Login Here </a></span>
+    </span>
+  </form>
+</main>

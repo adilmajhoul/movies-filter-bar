@@ -6,9 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ViewPortStateService {
-  private viewPortStateSubject = new BehaviorSubject<string | undefined>(
-    undefined,
-  );
+  private viewPortStateSubject = new BehaviorSubject<string | undefined>(undefined);
   viewPortState$ = this.viewPortStateSubject.asObservable();
 
   constructor() {}

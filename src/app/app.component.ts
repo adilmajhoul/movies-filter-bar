@@ -14,14 +14,7 @@ import { ViewPortStateService } from './services/view-port-state.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    NavbarComponent,
-
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-  ],
+  imports: [NavbarComponent, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -44,6 +37,8 @@ export class AppComponent {
   ]);
 
   ngOnInit(): void {
+    console.log('auth state from APP:', this.authService.user());
+
     this.http
       .get<{
         user: User;
@@ -56,13 +51,7 @@ export class AppComponent {
       );
     // ============================================
     this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-        Breakpoints.Small,
-        Breakpoints.Medium,
-        Breakpoints.Large,
-        Breakpoints.XLarge,
-      ])
+      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
       .subscribe((result) => {
         for (const query of Object.keys(result.breakpoints)) {
           if (result.breakpoints[query]) {
