@@ -1,11 +1,11 @@
-@let labelStyle = 'text-xl font-bold text-gray-800';
+@let labelStyle = 'text-xl font-bold text-gray-400';
 @let inputStyle = 'mb-4 focus:outline-none px-2 py-1 rounded-md focus:ring-2 focus:ring-red-600';
 @let createAccountButtonStyle =
   'mb-4 flex w-full justify-center rounded-md bg-red-600 py-1.5 font-semibold text-white active:border-4 active:bg-transparent active:border-red-600 text-xl';
 @let logiHereStyle =
   'p-1 rounded-md cursor-pointer font-semibold text-lg ml-4 text-red-600 active:bg-red-600 active:text-white';
 
-@let mainStyle = 'flex m-2 p-2 border-2 border-red-700 items-center justify-center ';
+@let mainStyle = 'flex m-2 p-2 border-2 border-red-700 items-center justify-center h-screen pattern-checks-sm bg-mint ';
 
 <!-- <main class="m-2 p-2 border-2 border-red-700 h-screen"> -->
 <!-- <img
@@ -18,12 +18,12 @@
     class="opacity-25 flex items-center justify-center bg-[url('https://bit.ly/login-doodle-patterns')] bg-center bg-no-repeat bg-cover h-screen"></div> -->
 <!-- </main> -->
 
-<main [class]="mainStyle + innerHeight">
+<main [class]="mainStyle">
   <form
     [formGroup]="signupForm"
     (ngSubmit)="onSubmit()"
     [ngClass]="getFormWidth()"
-    class="flex flex-col bg-opacity-40 shadow-2xl rounded-xl p-10 bg-[#303030] text-gray-400">
+    class="flex flex-col shadow-2xl rounded-xl p-10 bg-[#303030] text-gray-400">
     <label [class]="labelStyle">Username</label>
     <input [class]="inputStyle" type="text" formControlName="username" placeholder="Username" />
 
