@@ -1,0 +1,10 @@
+<div class="flex border text-2xl justify-center">
+  <select (change)="onBucketChange($event)">
+    <option value="">Select a bucket</option>
+    <option *ngFor="let bucket of buckets" [value]="bucket">{{ bucket }}</option>
+  </select>
+  <select *ngIf="selectedBucket">
+    <option value="">Select an object</option>
+    <option *ngFor="let obj of objects" [value]="obj">{{ obj }}</option>
+  </select>
+</div>
